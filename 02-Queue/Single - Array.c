@@ -21,7 +21,7 @@ QueueArray* CreateQueue (int size) {
 
 int isFULL (QueueArray* Queue) {
 
-    if(Queue->rear+1==Queue->capacity) {
+    if(Queue->front+1==Queue->capacity) {
             return 1;
     } else {
             return 0;
@@ -30,7 +30,7 @@ int isFULL (QueueArray* Queue) {
 
 int isEmpty (QueueArray* Queue) {
 
-    if(Queue->rear==Queue->front) {
+    if(Queue->front==Queue->rear) {
             return 1;
     } else {
             return 0;
@@ -43,7 +43,7 @@ void Enqueue (QueueArray* Queue , int value) {
         fprintf(stderr,"Queue is FULL, but you want push something");
         exit(1);
     } else {
-        Queue->array[++Queue->rear]=value;
+        Queue->array[++Queue->front]=value;
     }
 }
 
@@ -55,7 +55,7 @@ int Dequeue (QueueArray* Queue) {
         fprintf(stderr,"Queue is Empty, but you want pop something");
         exit(1);
     } else {
-        data = Queue->array[++Queue->front];
+        data = Queue->array[++Queue->rear];
     }
 
     return data;
