@@ -31,7 +31,7 @@ QueueLinklist* CreateQueue () {
 
 int isEmpty (QueueLinklist* queue) {
 
-    if(queue->front==NULL) {
+    if(queue->rear==NULL) {
         return 1;
     } else {
         return 0;
@@ -42,14 +42,14 @@ void Enqueue (QueueLinklist* queue , int data) {
 
     Linklist* temp = CreateLinklist(data);
 
-    if(queue->rear==NULL) {
-        queue->rear = temp;
-    } else {
-        queue->rear->next = temp;
-        queue->rear = temp;
-    }
     if(queue->front==NULL) {
         queue->front = temp;
+    } else {
+        queue->front->next = temp;
+        queue->front = temp;
+    }
+    if(queue->rear==NULL) {
+        queue->rear = temp;
     }
 }
 
@@ -57,14 +57,14 @@ int Dequeue (QueueLinklist* queue) {
 
     int data;
     Linklist* oldnode = (Linklist*)malloc(sizeof(Linklist));
-    oldnode = queue->front;
+    oldnode = queue->rear;
 
     if(isEmpty(queue)) {
         fprintf(stderr,"queue is empty, but you want to pop something");
         exit(1);
     } else {
-        data = queue->front->value;
-        queue->front = queue->front->next;
+        data = queue->rear->value;
+        queue->rear = queue->rear->next;
         free(oldnode);
     }
 
